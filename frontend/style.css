@@ -171,7 +171,7 @@ h1, h2, h3 { margin: 0; }
   border-bottom: 1px solid var(--line);
   padding: 14px 0 0;
   position: sticky;
-  top: 0;
+  top: 92px;
   z-index: 40;
 }
 
@@ -700,7 +700,7 @@ h1, h2, h3 { margin: 0; }
 }
 
 @media (max-width: 480px) {
-  .view { overflow-x: hidden; }
+  .view { overflow-x: clip; }
 
   .nav-toggle { display: flex; }
 
