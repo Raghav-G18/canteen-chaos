@@ -18,6 +18,18 @@ Delete the example before you submit.
 
 **Time:** about 20 minutes, including reproducing the issue and tracing the stacking context.
 
+## CC-02 — "Dish names and prices are nearly invisible in dark mode"
+
+**Reproduced:** Enabled Dark Mode and viewed the menu. Dish names and prices appeared in a very dark brown, making them difficult to read against the dark dish cards.
+
+**Cause:** The dark theme changes the `--ink` variable to a light color, but `.dish-body` had a hard-coded `color: #2b2118`. Dish names and prices inherit the `.dish-body` color, so they remained dark in Dark Mode.
+
+**Fix:** Changed `.dish-body` to use `color: var(--ink)` instead of the hard-coded dark brown, so the text follows the active theme.
+
+**Checked:** Refreshed the menu with Dark Mode enabled and verified that dish names and prices are clearly readable.
+
+**Time:** About 15 minutes.
+
 ## Could not fix
 
 For anything you investigated but did not solve. Say what you tried and where you got to. This is worth marks — leaving it blank when you got stuck is not.
