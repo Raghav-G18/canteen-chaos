@@ -30,6 +30,18 @@ Delete the example before you submit.
 
 **Time:** About 15 minutes.
 
+## CC-04 — "Add to Cart and star buttons do nothing on tablet"
+
+**Reproduced:** Opened the application on a tablet-sized screen between 761px and 900px wide. The Add to Cart and favourite star buttons were visible, but tapping them did nothing. The same buttons worked correctly on laptop and phone-sized screens.
+
+**Cause:** In the 761px–900px media query, `.dish-card::after` created an invisible overlay positioned over the bottom 58px of each dish card with `z-index: 3`. This overlay sat above the Add to Cart button and intercepted pointer events, preventing the button's delegated click handler from receiving the click.
+
+**Fix:** Added `pointer-events: none` to the `.dish-card::after` and `.img-wrap::after` pseudo-elements so they remain visually available without intercepting mouse or touch interactions.
+
+**Checked:** Refreshed the application on the tablet and tested both Add to Cart and favourite star buttons. Both now respond correctly. Also verified that the existing laptop and phone behaviour remains unaffected.
+
+**Time:** About 20 minutes, including reproducing the issue, tracing the click handling and CSS overlay, applying the fix, and testing.
+
 ## Could not fix
 
 For anything you investigated but did not solve. Say what you tried and where you got to. This is worth marks — leaving it blank when you got stuck is not.

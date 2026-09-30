@@ -291,7 +291,7 @@ h1, h2, h3 { margin: 0; }
 
 .fav-btn.on { color: var(--amber); }
 
-.dish-body { padding: 12px; display: flex; flex-direction: column; gap: 7px; flex: 1; color: #2b2118; }
+.dish-body { padding: 12px; display: flex; flex-direction: column; gap: 7px; flex: 1; color: var(--ink); }
 
 .dish-name { font-weight: 600; font-size: 15px; overflow-wrap: break-word; }
 
@@ -753,7 +753,7 @@ h1, h2, h3 { margin: 0; }
 
 /* ------------------------------------------------------ search box */
 
-.search-wrap { position: relative; z-index: 1; flex: 1; min-width: 200px; }
+.search-wrap { position: relative; z-index: 50; flex: 1; min-width: 200px; }
 .search-wrap .search { width: 100%; }
 
 .suggest-box {
@@ -1038,6 +1038,7 @@ body.is-offline .site-header { filter: grayscale(0.4); }
     position: absolute;
     background: transparent;
     transition: background 0.2s;
+    pointer-events: none;
   }
 
   .dish-card::after { left: 0; right: 0; bottom: 0; height: 58px; z-index: 3; }
