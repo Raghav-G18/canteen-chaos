@@ -42,6 +42,18 @@ Delete the example before you submit.
 
 **Time:** About 20 minutes, including reproducing the issue, tracing the click handling and CSS overlay, applying the fix, and testing.
 
+## CC-05 — "Category/filter bar scrolls away on smaller screens"
+
+**Reproduced:** Tested the application at a 391px mobile viewport and scrolled through the menu. The filter/category section initially appeared correctly but eventually scrolled away instead of remaining visible.
+
+**Cause:** On small screens, `.view` used `overflow-x: hidden`. This created a scrolling context that interfered with the `position: sticky` behavior of the `.filters` section. As a result, the filter section eventually moved out of view while scrolling.
+
+**Fix:** Changed the mobile `.view` overflow from `hidden` to `clip` for the horizontal axis, preventing it from creating the conflicting scrolling context. Also changed the sticky `.filters` offset from `top: 0` to `top: 92px` so the entire filter/category section remains below the sticky site header.
+
+**Checked:** Tested at a 391px mobile viewport and scrolled through the menu. The complete filter and category section now remains visible below the sticky header while scrolling. A minor visual gap remains between the header and filter section but does not affect functionality.
+
+**Time:** About 45 minutes, including reproducing the issue, tracing the sticky/overflow behavior, applying the fix, and testing.
+
 ## Could not fix
 
 For anything you investigated but did not solve. Say what you tried and where you got to. This is worth marks — leaving it blank when you got stuck is not.
