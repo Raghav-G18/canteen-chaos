@@ -65,6 +65,19 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 
 **Time:** About 20 minutes, including reproducing the issue, tracing the validation logic, applying the fix, and testing.
 
+## CC-07 — "Cancelling makes it worse"
+
+**Reproduced:** Placed an order and then cancelled it. The stock was expected to return to its previous value, but the cancellation logic reduced the stock instead.
+
+**Cause:** The `releaseStock()` function in `backend/logic/validation.js` used subtraction when restoring stock. It changed the stock using `dish.stock - line.qty`, which decreased the available quantity instead of returning the cancelled quantity.
+
+**Fix:** Changed the stock calculation in `releaseStock()` from subtraction to addition, so cancelled quantities are returned to the available stock.
+
+**Checked:** Tested ordering and cancelling an item. The stock returned to its previous value after cancellation. Also tested placing an order without cancelling it; the stock remained reduced as expected. Refreshed the menu to confirm that the displayed stock matched the backend stock.
+
+**Time:** About 30 minutes, including reproducing the issue, tracing the cancellation logic, applying the fix, and testing.
+
+
 ## Could not fix
 
 
