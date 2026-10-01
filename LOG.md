@@ -77,6 +77,18 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 
 **Time:** About 30 minutes, including reproducing the issue, tracing the cancellation logic, applying the fix, and testing.
 
+## CC-08 — "An old coupon still works"
+
+**Reproduced:** Applied the `FRESHERS24` coupon even though its expiry date was September 30, 2024. The coupon was still accepted by the pricing logic and could provide a discount.
+
+**Cause:** The `applyCoupon()` function in `backend/logic/pricing.js` checked whether the coupon existed, had uses remaining, met the minimum order, and satisfied other restrictions, but it did not check the coupon's `expiresAt` date.
+
+**Fix:** Added an expiry-date check to `applyCoupon()`. If the coupon's expiry time is at or before the current time, the coupon is rejected with an expiration message and a discount of 0.
+
+**Checked:** Tested `FRESHERS24` directly against the pricing function. The result was `valid: false`, `discount: 0`, with the reason `FRESHERS24 has expired`. Also tested `BYTE10`, a non-expired coupon, which remained valid and correctly provided a ₹20 discount on a ₹200 order.
+
+**Time:** About 20 minutes, including reproducing the issue, tracing the coupon validation logic, applying the fix, and testing.
+
 
 ## Could not fix
 
