@@ -101,6 +101,18 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 
 **Time:** About 20 minutes, including reproducing the issue, tracing the pagination logic, applying the fix, and testing.
 
+## CC-10 — "Sorting by price is backwards"
+
+**Reproduced:** Selected "Price: low to high" and found that the most expensive dishes appeared first. Selecting "Price: high to low" produced the opposite order.
+
+**Cause:** The price sorting functions in `backend/logic/search.js` were reversed. The `price-asc` sorter used descending comparison (`b.price - a.price`), while the `price-desc` sorter used ascending comparison (`a.price - b.price`).
+
+**Fix:** Corrected the two price comparison functions so that `price-asc` sorts from the lowest price to the highest price, and `price-desc` sorts from the highest price to the lowest price.
+
+**Checked:** Tested both price sorting options in the application. "Price: low to high" now shows the cheapest dishes first, while "Price: high to low" shows the most expensive dishes first.
+
+**Time:** About 10 minutes, including reproducing the issue, tracing the sorting logic, applying the fix, and testin
+
 
 ## Could not fix
 
