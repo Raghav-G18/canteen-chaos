@@ -38,7 +38,7 @@ async function loadMenu({ append = false } = {}) {
       servedOnly: state.filters.servedOnly ? 'true' : '',
       maxPrice: state.filters.maxPrice,
       page: state.page,
-      limit: 5,
+      limit: 8,
     });
 
     if (myRequest !== menuRequestId) return; // a newer search already won

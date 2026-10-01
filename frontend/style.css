@@ -238,6 +238,7 @@ h1, h2, h3 { margin: 0; }
 }
 
 .dish-card {
+  min-width: 0;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
