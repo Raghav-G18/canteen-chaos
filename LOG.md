@@ -82,4 +82,16 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 
 
 ## Extra credit
+### Extra Credit Test — Concurrent last-item ordering
+
+**Scenario:** Tested what happens when two students attempt to order the same dish at the same time when only 1 unit is available.
+
+**Test:** Set `Rajma Chawal` stock to 1 and sent two order requests concurrently using separate requests/keys.
+
+**Result:** One request returned HTTP 201 (order created) and the other returned HTTP 400 (insufficient stock). Only one order was accepted.
+
+**Checked:** Verified that the final stock was not oversold and restored the dish's original stock of 24 after testing.
+
+**Conclusion:** The current single-server implementation prevents two simultaneous requests from consuming the same last item. No code change was made because the concurrency issue could not be reproduced.
+
 
