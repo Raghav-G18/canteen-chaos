@@ -4,7 +4,6 @@ Your notes. One entry per bug you fixed, using the template below.
 
 This file is read as carefully as your code. A correct fix you cannot explain counts for little; a bug you could not fix but investigated honestly still counts for something.
 
-
 ## CC-01 — "Search suggestions appear behind everything"
 
 **Reproduced:** Typed a search term with at least two characters. The suggestion list appeared behind the category/filter area, so only the top part was visible and clickable. Happened consistently when reproduced locally.
@@ -15,7 +14,7 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 
 **Checked:** Refreshed the application and tested search suggestions again. The complete suggestion list now appears above the filter/category area, and the suggestion buttons are fully visible and clickable.
 
-**Time:** about 20 minutes, including reproducing the issue and tracing the stacking context.
+**Time:** About 20 minutes, including reproducing the issue and tracing the stacking context.
 
 ## CC-02 — "Dish names and prices are nearly invisible in dark mode"
 
@@ -28,6 +27,18 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 **Checked:** Refreshed the menu with Dark Mode enabled and verified that dish names and prices are clearly readable.
 
 **Time:** About 15 minutes.
+
+## CC-03 — "The menu is wider than my phone"
+
+**Reproduced:** Tested the menu at narrow and intermediate viewport widths. Around 500px wide, the menu cards were forced wider than the available screen space, causing the whole page to overflow horizontally. The issue was especially noticeable at approximately 500–650px widths.
+
+**Cause:** The menu used a two-column CSS Grid at widths below 760px. The `.dish-card` elements had an automatic minimum width based on their content, which prevented the grid columns from shrinking enough to fit the available space. At a 500px viewport, the grid became wider than its container and caused horizontal page overflow.
+
+**Fix:** Added `min-width: 0` to `.dish-card`, allowing the grid items to shrink within their available grid columns instead of being forced to their content's minimum width.
+
+**Checked:** Tested the responsive menu at multiple widths from 480px to 800px. The menu now fits within the viewport without horizontal scrolling, while retaining one column on very small screens, two columns on intermediate screens, and three columns at wider tablet-sized widths.
+
+**Time:** About 30 minutes, including reproducing the issue, inspecting the computed grid dimensions, identifying the minimum-width constraint, applying the CSS fix, and testing multiple viewport sizes.
 
 ## CC-04 — "Add to Cart and star buttons do nothing on tablet"
 
@@ -111,13 +122,12 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 
 **Checked:** Tested both price sorting options in the application. "Price: low to high" now shows the cheapest dishes first, while "Price: high to low" shows the most expensive dishes first.
 
-**Time:** About 10 minutes, including reproducing the issue, tracing the sorting logic, applying the fix, and testin
-
+**Time:** About 10 minutes, including reproducing the issue, tracing the logic, applying the fix, and testing.
 
 ## Could not fix
 
-
 ## Extra credit
+
 ### Extra Credit Test — Concurrent last-item ordering
 
 **Scenario:** Tested what happens when two students attempt to order the same dish at the same time when only 1 unit is available.
@@ -129,5 +139,3 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 **Checked:** Verified that the final stock was not oversold and restored the dish's original stock of 24 after testing.
 
 **Conclusion:** The current single-server implementation prevents two simultaneous requests from consuming the same last item. No code change was made because the concurrency issue could not be reproduced.
-
-
