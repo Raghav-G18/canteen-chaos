@@ -89,6 +89,18 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 
 **Time:** About 20 minutes, including reproducing the issue, tracing the coupon validation logic, applying the fix, and testing.
 
+## CC-09 — "The menu shows more dishes than it should"
+
+**Reproduced:** Opened the menu and found that all available dishes were displayed at once instead of loading a small number of dishes at a time as the user scrolled.
+
+**Cause:** The `paginate()` function in `backend/logic/search.js` correctly calculated the requested page using `list.slice(...)`, but the returned `items` property incorrectly contained the complete list. As a result, every page returned all available dishes instead of only the requested batch.
+
+**Fix:** Changed the returned `items` property to use the paginated `items` array instead of the complete list. Also changed the frontend page size from 5 to 8 dishes per batch for a better browsing experience.
+
+**Checked:** Tested the menu API with `page=2&limit=5` and confirmed that it returned a different set of dishes for page 2. Then tested the website after changing the frontend batch size to 8. The menu now displays 8 dishes initially and loads the next batch as the user scrolls, without repeating the previous dishes.
+
+**Time:** About 20 minutes, including reproducing the issue, tracing the pagination logic, applying the fix, and testing.
+
 
 ## Could not fix
 
