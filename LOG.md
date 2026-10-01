@@ -54,6 +54,18 @@ Delete the example before you submit.
 
 **Time:** About 45 minutes, including reproducing the issue, tracing the sticky/overflow behavior, applying the fix, and testing.
 
+## CC-06 — "Can order more than stock"
+
+**Reproduced:** Created a test dish with 2 units in stock and submitted an order for 3 units. The backend incorrectly returned `valid: true` with no errors.
+
+**Cause:** `validateLine()` checked whether a dish was sold out (`stock <= 0`) but did not check whether the requested quantity was greater than the available stock. As a result, an order could request more units than were available, and `reserveStock()` could reduce the stock below zero.
+
+**Fix:** Added a validation check that rejects an order when the requested quantity is greater than the dish's current stock.
+
+**Checked:** Verified that ordering 3 units when 2 are in stock is rejected with `Test Dish: only 2 left in stock`. Verified that ordering exactly 2 units when 2 are in stock is accepted. Also verified that reserving 2 units reduces the stock from 2 to 0.
+
+**Time:** About 20 minutes, including reproducing the issue, tracing the validation logic, applying the fix, and testing.
+
 ## Could not fix
 
 For anything you investigated but did not solve. Say what you tried and where you got to. This is worth marks — leaving it blank when you got stuck is not.
