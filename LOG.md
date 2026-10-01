@@ -124,6 +124,21 @@ This file is read as carefully as your code. A correct fix you cannot explain co
 
 **Time:** About 10 minutes, including reproducing the issue, tracing the logic, applying the fix, and testing.
 
+## CC-11 — "Order history is empty when filtering by memberId"
+
+**Reproduced:** Requested order history using a valid `memberId`. The frontend sends the member ID as the `memberId` query parameter, but the returned order list was empty even when orders existed for that member.
+
+**Cause:** In `backend/routes/orders.routes.js`, the condition checked for `req.query.memberId` but the actual filter compared each order's `memberId` against `req.query.userId`. The route was therefore using the wrong query parameter when filtering orders.
+
+**Fix:** Changed the filter to compare the order's `memberId` with `req.query.memberId`.
+
+**Checked:** Tested with a valid member ID and received the member's existing 12 orders, all with the matching `memberId`. Also tested an unknown member ID and confirmed that it correctly returned zero orders.
+
+**Why this change belongs here:** The problem was in the orders route's query-parameter filtering logic, so the fix belongs in `backend/routes/orders.routes.js` rather than changing the frontend request or the stored order data.
+
+**Time:** About 15 minutes, including reproducing the issue, tracing the filtering logic, applying the fix, and testing valid and unknown member IDs.
+
+
 ## Could not fix
 
 ## Extra credit
