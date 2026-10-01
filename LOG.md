@@ -50,7 +50,7 @@ Delete the example before you submit.
 
 **Fix:** Changed the mobile `.view` overflow from `hidden` to `clip` for the horizontal axis, preventing it from creating the conflicting scrolling context. Also changed the sticky `.filters` offset from `top: 0` to `top: 92px` so the entire filter/category section remains below the sticky site header.
 
-**Checked:** Tested at a 391px mobile viewport and scrolled through the menu. The complete filter and category section now remains visible below the sticky header while scrolling. A minor visual gap remains between the header and filter section but does not affect functionality.
+**Checked:** Tested at a 391px mobile viewport and scrolled through the menu. The complete filter and category section now remains visible below the sticky header while scrolling.
 
 **Time:** About 45 minutes, including reproducing the issue, tracing the sticky/overflow behavior, applying the fix, and testing.
 
